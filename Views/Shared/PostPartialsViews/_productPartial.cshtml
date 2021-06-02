@@ -1,0 +1,47 @@
+﻿@model ProductModel
+<div class="col-md-4">
+    <div class="ibox">
+        <div clas="ibox-content product-box">
+
+            <div class="product-imitation">
+                @{
+                    if (Model.Image1 != null)
+                    {
+                        <img class="imageAuto" src="@Model.Image1" alt="" />
+                    }
+                    else
+                    {
+                        <img class="imageAuto" src="~/Images/noImage.png" alt="" />
+                    }
+                }
+            </div>
+            <div class="product-desc">
+                <span class="product-price">
+                    @{
+                        if (Context.Request.Cookies["UserName"] != null)
+                        {
+                            <span>$ @(Math.Round((decimal.ToDouble(Model.Price) * 0.9),2))</span>
+                        }
+                        else
+                        {
+                            <span>$ @Model.Price</span>
+                        }
+                    }
+                </span>
+                <div class="product-name"> @Model.Title</div>
+                <div class="m-t text-righ btnpadding">
+                    <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-xs btn-outline btn-primary ">
+                        Details
+                        <i class="fa fa-long-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="m-t text-righ">
+                    <a asp-area="" asp-controller="Home" asp-action="AddToCart" asp-route-id="@Model.Id" class="btn btn-xs btn-outline btn-primary">
+                        Add to cart
+                        <i class="fa fa-long-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

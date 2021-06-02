@@ -1,0 +1,75 @@
+﻿@model UserModel
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <div class="container">
+        <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                @{
+                    if (Context.Request.Cookies["UserName"] == null)
+                    {
+                        <h4 class="card-title mt-3 text-center">Create Account</h4>
+                        <p class="text-center">Get started with your free account</p>
+                    }
+                    else
+                    {
+                        <h4 class="card-title mt-3 text-center">Update Account</h4>
+                    }
+                }
+                <form id="subForm" method="post" asp-controller="User" asp-action="Signup_Submit">
+                    <input id="IdUserUpdate" type="hidden" asp-for="Id" value="" />
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input asp-for="UserName" id="userNamesign" class="form-control" placeholder="User name" type="text">
+                        <span asp-validation-for="UserName"></span>
+                    </div> <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input id="firstNamesign" asp-for="FirstName" class="form-control" placeholder="First name" type="text">
+                        <span asp-validation-for="FirstName"></span>
+                    </div> <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input id="lastName" asp-for="LastName" class="form-control" placeholder="Last name" type="text">
+                        <span asp-validation-for="LastName"></span>
+                    </div> <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input id="email" asp-for="Email" class="form-control" placeholder="Email address" type="email">
+                        <span asp-validation-for="Email"></span>
+                    </div> <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input asp-for="Password" id="password" class="form-control" placeholder="Create password" type="password">
+                        <span asp-validation-for="Password"></span>
+                    </div> <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input id="confirm_password" class="form-control" placeholder="Repeat password" type="password">
+                        <span asp-validation-for="Password"></span>
+                    </div> <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="far fa-calendar-alt"></i> </span>
+                        </div>
+                        <input a id="BirthDate" type="date" asp-for="BirthDate" class="form-control">
+                        <span asp-validation-for="BirthDate"></span>
+                    </div> <!-- form-group// -->
+                    <div class="form-group">
+                        <button id="btnSub" type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+                    </div> <!-- form-group// -->
+                </form>
+            </article>
+        </div> <!-- card.// -->
+
+    </div>

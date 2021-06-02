@@ -1,0 +1,63 @@
+﻿@model ProductModel
+<!------ Include the above in your HEAD tag ---------->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<div class="container">
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mt-3 text-center">Post an add!</h4>
+            <form method="post" asp-controller="Home" asp-action="PostAddResult" enctype="multipart/form-data">
+                <input asp-for="OwnerId.Id" class="form-control" id="OwnerId" type="hidden">
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-heading"></i> </span>
+                    </div>
+                    <input id="title" asp-for="Title" class="form-control" placeholder="Title" type="text">
+                    <span asp-validation-for="Title"></span>
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="far fa-comment"></i> </span>
+                    </div>
+                    <input id="ShortDescription" asp-for="ShortDescription" class="form-control" placeholder="Short Description" type="text">
+                    <span asp-validation-for="ShortDescription"></span>
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-paragraph"></i> </span>
+                    </div>
+                    <input id="LongDescription" asp-for="LongDescription" class="form-control" placeholder="Long Description" type="text">
+                    <span asp-validation-for="LongDescription"></span>
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-dollar-sign"></i> </span>
+                    </div>
+                    <input type="text" asp-for="Price" class="form-control" placeholder="Price">
+                    <span asp-validation-for="Price"></span>
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-image"></i> </span>
+                    </div>
+                    <input asp-for="Image1File" class="form-control" accept="image/*" type="file">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-image"></i> </span>
+                    </div>
+                    <input asp-for="Image2File" class="form-control" accept="image/*" type="file">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-image"></i> </span>
+                    </div>
+                    <input asp-for="Image3File" class="form-control" accept="image/*" type="file">
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button id="btnSubAdd" type="submit" class="btn btn-primary btn-block"> Post Add  </button>
+                </div> <!-- form-group// -->
+            </form>
+        </article>
+    </div> <!-- card.// -->
+
+</div>

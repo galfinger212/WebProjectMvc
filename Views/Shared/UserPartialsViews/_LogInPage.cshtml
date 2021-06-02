@@ -1,0 +1,18 @@
+﻿@model UserModel
+<form method="post" asp-controller="User" asp-action="LogIn">
+    <div>
+        <label asp-for="UserName" style="width: 120px;">User Name:</label>
+        <input asp-for="UserName" id="LoginUsername" placeholder="UserName" />
+        <span asp-validation-for="UserName"></span>
+    </div>
+    <div>
+        <label asp-for="Password" style="width: 120px;">Password:</label>
+        <input type="password" id="LoginPassword" asp-for="Password" placeholder="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <div>
+        <button class="btn btn-primary" type="submit" id="LogIn_button">Login</button>
+        <button class="btn btn-primary" id="Signup_button" type="button">Signup</button>
+    </div>
+</form>

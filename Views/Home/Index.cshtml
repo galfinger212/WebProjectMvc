@@ -1,0 +1,107 @@
+﻿@model List<ProductModel>
+@{
+    switch (ViewData["CurrentPartialView"])
+    {
+        case ("AboutUs"):
+            @await Html.PartialAsync("/Views/Shared/AboutUs" + ".cshtml");
+            ViewData["Title"] = "About Us";
+            return;
+        case ("PostAnAdd"):
+            @await Html.PartialAsync("/Views/Shared/PostPartialsViews/PostAdd" + ".cshtml");
+            ViewData["Title"] = "Post An Add";
+            @section Scripts{
+                <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                <script src="~/js/postAdd.js"></script>
+            }
+            return;
+        case ("ShoppingCart"):
+            List<ProductModel> list = TempData["listItems"] as List<ProductModel>;
+            @await Html.PartialAsync("/Views/Shared/PostPartialsViews/ShoppingCart" + ".cshtml", list);
+            ViewData["Title"] = "Shopping Cart";
+            @section Scripts{
+                <script src="~/js/shoppingCartLoad.js"></script>
+            }
+            return;
+        case ("SignUpPage"):
+            @await Html.PartialAsync("/Views/Shared/UserPartialsViews/Signup" + ".cshtml");
+            ViewData["Title"] = "Sign Up Page";
+            @section Scripts {
+                <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                <script src="~/js/SignUp.js"></script>
+                @{
+                    if (Context.Request.Cookies["UserName"] != null)
+                    {
+                        <script src="~/js/LoadDetails.js"></script>
+                    }
+                }
+            }
+            return;
+        case ("Details"):
+            @await Html.PartialAsync("/Views/Shared/PostPartialsViews/Details" + ".cshtml", TempData["Product"] as ProductModel);
+            ViewData["Title"] = "Details";
+            @section Scripts {
+                <script src="~/js/userDetails.js"></script>
+                <script src="~/js/imageSelected.js"></script>
+            }
+            return;
+    }
+}
+@{
+    ViewData["Title"] = "Home";
+}
+@section Styles {
+    @*<link rel="stylesheet" href="~/css/HomePage.css" />*@
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/css/ProductsList.css" rel="stylesheet" />
+}
+<div class="container bootdey row">
+    <div class="col-md-3">
+        <section class="panel">
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <span class="customSelect form-control" style="display: inline-block;">
+                            <span class="customSelectInner" style="width: 209px; display: inline-block;">
+                                Sort Options
+                            </span>
+                        </span>
+                    </div>
+                    <button asp-area="" asp-controller="Home" asp-action="SortByDate" class="btn btn-primary" type="submit">
+                        <i class="fa fa-sort"></i>
+                        Sort by date
+                    </button>
+                    <hr />
+                    <button asp-area="" asp-controller="Home" asp-action="SortByTitle" class="btn btn-primary" type="submit">
+                        <i class="fa fa-sort"></i>
+                        Sort by title
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+    <div class="col-md-9">
+        @*<section class="panel">
+            <div class="panel-body">
+                <div class="pull-right">
+                    <ul class="pagination pagination-sm pro-page-list ">
+                        <li class="list-group-item active"><a href="#">1</a></li>
+                        <li class="list-group-item"><a href="#">2</a></li>
+                        <li class="list-group-item"><a href="#">3</a></li>
+                        <li class="list-group-item"><a href="#">»</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>*@
+        <div class="row product-list">
+            @{
+                foreach (ProductModel item in Model)
+                {
+                    @await Html.PartialAsync("/Views/Shared/PostPartialsViews/_productPartial.cshtml", item)
+                }
+            }
+
+        </div>
+    </div>
+</div>

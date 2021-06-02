@@ -1,0 +1,144 @@
+﻿@model ProductModel
+@{
+    bool isUser = Context.Request.Cookies["UserName"] != null;
+}
+<link rel="stylesheet" href="~/css/Details.css" />
+<div class="super_container">
+    <input id="Id" asp-for="OwnerId" type="hidden" value="@Model.OwnerId.Id" />
+    <header class="header" style="display: none;">
+    </header>
+    <div class="single_product">
+        <div class="container-fluid" style=" background-color: #fff; padding: 11px;">
+            <div class="row">
+                <div class="col-lg-2 order-lg-1 order-2">
+                    <ul class="image_list">
+                        @{
+                            if (Model.Image1 != null)
+                            {
+                                <li id="liImage1">
+                                    <img class="imageAuto" id="image1" src="@Model.Image1" />
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <img class="imageAuto" src="~/images/noImage.png" />
+                                </li>
+
+                            }
+                        }
+                        @{
+                            if (Model.Image2 != null)
+                            {
+                                <li id="liImage2">
+                                    <img class="imageAuto" id="image2" src="@Model.Image2" />
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <img class="imageAuto" src="~/images/noImage.png" />
+                                </li>
+
+                            }
+                        }
+                        @{
+                            if (Model.Image3 != null)
+                            {
+                                <li id="liImage3">
+                                    <img class="imageAuto" id="image3" src="@Model.Image3" />
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <img class="imageAuto" src="~/images/noImage.png" />
+                                </li>
+
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="col-lg-4 order-lg-2 order-1">
+                    <div class="image_selected">
+                        @{
+                            if (Model.Image1 != null)
+                            {
+                                <img class="imageAuto" src="@Model.Image1" alt="" />
+                            }
+                            else
+                            {
+                                <img class="imageAuto" src="~/images/noImage.png" alt="" />
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6 order-3">
+                    <div class="product_description">
+                        <div class="product_name">
+                            @Model.Title
+                        </div>
+                        <hr class="singleline">
+                        <div>
+                            @Model.ShortDescription
+                        </div>
+                        <hr class="singleline">
+                        <div>
+                            <span class="product_price">
+                                @{
+                                    if (isUser)
+                                    {
+                                        <span>
+                                            $ @(Math.Round((decimal.ToDouble(Model.Price) * 0.9),2))
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            $ @Model.Price
+                                        </span>
+                                    }
+                                }
+
+                            </span>
+                            @{
+                                if (isUser)
+                                {
+                                    <strike class="product_discount">
+                                        <span style='color:black'>
+                                            $ @Model.Price
+                                        </span>
+                                    </strike>
+                                    <br />
+                                    <span class="product_saved">
+                                        You Saved:
+                                    </span>
+                                    <span>
+                                        $ @(Math.Round(decimal.ToDouble(Model.Price)-((decimal.ToDouble(Model.Price) * 0.9)),2))
+                                    </span>
+                                }
+                            }
+                        </div>
+                        <hr class="singleline">
+                        <div>
+                            @Model.LongDescription
+                        </div>
+                        <hr class="singleline">
+                        <div class="order_info d-flex flex-row">
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <a asp-area="" asp-controller="Home" asp-action="AddToCart" asp-route-id="@Model.Id" class="btn btn-primary shop-button">Add to Cart</a>
+                                <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-success shop-button">Continue Shopping</a>
+                            </div>
+                        </div>
+                        <hr class="singleline">
+                        <div id="userDiv">
+                            user details
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

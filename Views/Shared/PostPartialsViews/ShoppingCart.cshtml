@@ -1,0 +1,67 @@
+﻿@model List<ProductModel>
+@{
+    string msg = "";
+    if (TempData["ZeroProducts"] != null)
+    {
+        msg = TempData["ZeroProducts"].ToString();
+    }
+    else if (TempData["SuccessBuy"] != null)
+    {
+        msg = TempData["SuccessBuy"].ToString();
+    }
+    <input id="msg" type="hidden" value="@msg" />
+}
+<link rel="stylesheet" href="~/css/shoppingCart.css" />
+<div class="cart_section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="cart_container">
+                    <div class="cart_title">
+                        Shopping Cart
+                        <small>
+                            (@Model.Count items in your cart)
+                        </small>
+                    </div>
+                    <div class="cart_items">
+                        <ul class="cart_list">
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    @await Html.PartialAsync("/Views/Shared/PostPartialsViews/_PartialViewCartItem.cshtml", item)
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <div class="order_total">
+                        <div class="order_total_content text-md-right">
+                            <div class="order_total_title">Order Total:</div>
+                            <div id="TotalPrice" name="@Model.Sum(o => o.Price)" class="order_total_amount">
+                                $@Model.Sum(o => o.Price)
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        if (Context.Request.Cookies["UserName"] != null)
+                        {
+                            <div class="order_total">
+                                <div class="order_total_content text-md-right">
+                                    <div class="order_total_title">
+                                        Order Total After Friend Discount:
+                                    </div>
+                                    <div id="TotalPriceDisc" name="@Model.Sum(o => (Math.Round((decimal.ToDouble(o.Price) * 0.9), 2)))" class="order_total_amount">
+                                        $@Model.Sum(o => (Math.Round((decimal.ToDouble(o.Price) * 0.9), 2)))
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    <div class="cart_buttons">
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="button cart_button_clear">Continue Shopping</a>
+                        <a asp-area="" asp-controller="Home" asp-action="BuyProduct" class="button cart_button_checkout">Buy now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
